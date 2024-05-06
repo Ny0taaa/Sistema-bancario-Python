@@ -25,7 +25,8 @@ while True:
 
         if valor > 0:
             saldo += valor
-            extrato += f"Depósito: R${valor: .2f}\n"
+            extrato += print(f"Depósito: R$ {valor: .2f}\n")
+            print("Operação realizada com sucesso!")
 
         else:
             print("Operação Falhou. Valor informado é inválido.")
@@ -46,7 +47,8 @@ while True:
 
         elif valor > 0:
             saldo -= valor
-            extrato += f"Saque: R${valor: .2f}\n"
+            extrato += print(f"Saque: R${valor: .2f}\n")
+            print("Operação realizada com sucesso!")
             numero_saques += 1
 
         else:
@@ -56,7 +58,7 @@ while True:
         print("\n=========== EXTRATO ===========")
         print("Não foram realizados movimentações") if not extrato else extrato
         print(f"\nSaldo: R$ {saldo: .2f}")
-        print("=================================")
+        print("\n=================================")
 
     elif opcao == "q": #Sair
         break
