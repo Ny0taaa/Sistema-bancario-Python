@@ -7,13 +7,13 @@ menu = '''
     [E] Extrato
     [Q] Sair
 
-'''
+==> '''
 
 saldo = 0
 limite = 500
 extrato = ""
 numero_saques = 0
-limite_saques = 3
+LIMITE_SAQUES = 3
 
 while True:
     
@@ -25,11 +25,12 @@ while True:
 
         if valor > 0:
             saldo += valor
-            extrato += print(f"Depósito: R$ {valor: .2f}\n")
+            extrato += f"Depósito: R$ {valor:.2f}\n"
+            print(f"Depósito: R$ {valor:.2f}\n")
             print("Operação realizada com sucesso!")
 
         else:
-            print("Operação Falhou. Valor informado é inválido.")
+            print("Operação Falhou! Valor informado é inválido.")
             
     elif opcao == "s": #Saque
 
@@ -37,7 +38,7 @@ while True:
 
         excedeu_saldo = valor > saldo
         excedeu_limite = valor > limite
-        excedeu_saque = numero_saques >= limite_saques
+        excedeu_saque = numero_saques >= LIMITE_SAQUES
 
         if excedeu_saldo:
             print("Operação Falhou! O valor informado é maior que o seu saldo.")
@@ -45,18 +46,22 @@ while True:
         elif excedeu_limite:
             print("Operação Falhou! O valor informado excedeu o limite.")
 
+        elif excedeu_saque:
+            print("Operação Falhou! O número máximo de saques excedido.")
+
         elif valor > 0:
             saldo -= valor
-            extrato += print(f"Saque: R${valor: .2f}\n")
-            print("Operação realizada com sucesso!")
+            extrato += f"Saque: R$ {valor:.2f}\n"
             numero_saques += 1
+            print(f"Saque: R$ {valor:.2f}\n")
+            print("Operação realizada com sucesso!")
 
         else:
             print("Operação Falhou! O valor informado é inválido.")
     
     elif opcao == "e": #Extrato
         print("\n=========== EXTRATO ===========")
-        print("Não foram realizados movimentações") if not extrato else extrato
+        print("Não foram realizados movimentações" if not extrato else extrato)
         print(f"\nSaldo: R$ {saldo: .2f}")
         print("\n=================================")
 
