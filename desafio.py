@@ -52,7 +52,7 @@ while True:
         else:
             print("Operação Falhou! O valor informado é inválido.")
     
-    elif opção == "e": #Extrato
+    elif opcao == "e": #Extrato
         print("\n=========== EXTRATO ===========")
         print("Não foram realizados movimentações") if not extrato else extrato
         print(f"\nSaldo: R$ {saldo: .2f}")
@@ -62,4 +62,4 @@ while True:
         break
 
     else: #Input inválido
-        print("Operação inválida, por gentileza selecione uma opção válida")
+        print("Operação inválida, por gentileza selecione uma opção válida.")
