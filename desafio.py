@@ -62,6 +62,7 @@ while True:
     elif opcao == "e": #Extrato
         print("\n=========== EXTRATO ===========")
         print("Não foram realizados movimentações" if not extrato else extrato)
+        print("\n             ======")
         print(f"\nSaldo: R$ {saldo: .2f}")
         print("\n=================================")
 
