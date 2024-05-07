@@ -10,8 +10,8 @@ def menu():
     [N]\tNova Conta
     [C]\tContas Cadastradas
     [U]\tNovo Usuário
-    [Q] Sair
-    ==> '''
+    [Q]\tSair
+    \n==> '''
     return input(tw.dedent(menu))
 
 def depositar(saldo, valor, extrato,/): 
@@ -27,10 +27,10 @@ def depositar(saldo, valor, extrato,/):
 
     return saldo, extrato
 
-def sacar(*, saldo, valor, extrato, limite, numero_saques, limite_saques):
+def sacar(*, saldo, valor, extrato, limite, num_saques, LIMITE_SAQUES):
     excedeu_saldo = valor > saldo
     excedeu_limite = valor > limite
-    excedeu_saque = num_saques >= limite_saques
+    excedeu_saque = num_saques >= LIMITE_SAQUES
 
     if excedeu_saldo:
          print("Operação Falhou! O valor informado é maior que o seu saldo.")
@@ -96,9 +96,9 @@ def listar_contas(contas):
     
     for conta in contas:
         linha = f"""\
-            Agência: \t{conta['agencia']}
-            C/C: \t{conta['num_conta']}
-            Titular: \t{conta['usatio']}
+            Agência:\t{conta['agencia']}
+            C/C:\t{conta['num_conta']}
+            Titular:\t{conta['usuario']}
         """
         
         print("=" * 45)
@@ -110,7 +110,7 @@ def main():
     AGENCIA = "0001"
 
     saldo = 0
-    limite = 0
+    limite = 500
     extrato = ""
     num_saques = 0
     usuarios = []
@@ -140,17 +140,17 @@ def main():
         elif opcao == "e":
             show_extrato(saldo, extrato = extrato)
 
-        elif opcao == "n":
+        elif opcao == "u":
             new_usuario(usuarios)
 
-        elif opcao == "c":
+        elif opcao == "n":
             num_conta = len(contas) +1
             conta = new_conta(AGENCIA, num_conta, usuarios)
 
             if conta:
                 contas.append(conta)
 
-        elif opcao == "u":
+        elif opcao == "c":
             listar_contas(contas)
 
         elif opcao == "q": #Sair
