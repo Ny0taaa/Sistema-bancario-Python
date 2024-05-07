@@ -92,6 +92,17 @@ def new_conta(agencia, num_conta, usuarios):
     
     print("\n===== Usuário não localizado. Sessão encerrada. =====")
 
+def listar_contas(contas):
+    
+    for contas in contas:
+        linha = f"""\
+            Agência: \t{conta['agencia']}
+            C/C: \t{conta['num_conta']}
+            Titular: \t{conta['usatio']}
+        """
+        
+        print("=" * 45)
+        print(tw.dedent(linha))
 
 
 
