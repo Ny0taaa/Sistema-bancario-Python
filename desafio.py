@@ -76,6 +76,11 @@ def new_usuario(usuarios):
 
     print("\n===== Usuário cadastrado com sucesso! =====")
 
+def filtra_usuario(cpf, usuarios):
+
+    usuarios_cadastrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
+    return usuarios_cadastrados[0] if usuarios_cadastrados else None
+
 
 
     elif opcao == "q": #Sair
