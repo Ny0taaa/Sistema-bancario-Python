@@ -1,40 +1,39 @@
-menu = '''
+import textwrap as tw
 
-   ==== MENU ====
+def menu():
+    menu = '''\n
+   ========== MENU ==========
 
-    [D] Depositar
-    [S] Saque
-    [E] Extrato
+    [D]\tDepositar
+    [S]\tSaque
+    [E]\tExtrato
+    [N]\tNova Conta
+    [C]\tContas Cadastradas
+    [U]\tNovo Usuário
     [Q] Sair
+    ==> '''
+    return input(tw.dedent(menu))
 
-==> '''
+def depositar(saldo, valor, extrato,/): 
 
-saldo = 0
-limite = 500
-extrato = ""
-numero_saques = 0
-LIMITE_SAQUES = 3
+    if valor > 0:
+        saldo += valor
+        extrato += f"Depósito: R$ {valor:.2f}\n"
+        print(f"Depósito: R$ {valor:.2f}\n")
+        print("\n===== Operação realizada com sucesso! =====")
 
-while True:
-    
-    opcao = input(menu)
+    else:
+        print("\n===== Operação Falhou! Valor informado é inválido. =====")
 
-    if opcao == "d": # Depóstio
+    return saldo, extrato
 
-        valor = float(input("Informe o valor a ser depositado: "))
+def sacar()
 
-        if valor > 0:
-            saldo += valor
-            extrato += f"Depósito: R$ {valor:.2f}\n"
-            print(f"Depósito: R$ {valor:.2f}\n")
-            print("Operação realizada com sucesso!")
 
-        else:
-            print("Operação Falhou! Valor informado é inválido.")
-            
-    elif opcao == "s": #Saque
 
-        valor = float(input("Informe o valor do saque: "))
+#    elif opcao == "s": #Saque
+
+#        valor = float(input("Informe o valor do saque: "))
 
         excedeu_saldo = valor > saldo
         excedeu_limite = valor > limite
