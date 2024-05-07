@@ -67,6 +67,7 @@ def new_usuario(usuarios):
 
     if usuario:
         print("\n===== Já existe um usuário com esse CPF! =====")
+        return
     
     nome = input("Digite o seu nome completo: ")
     data_nasc = input("Digite a sua data de nascimento: ")
@@ -97,8 +98,8 @@ def listar_contas(contas):
     for conta in contas:
         linha = f"""\
             Agência:\t{conta['agencia']}
-            C/C:\t{conta['num_conta']}
-            Titular:\t{conta['usuario']}
+            C/C:\t\t{conta['num_conta']}
+            Titular:\t{conta['usuario']['nome']}
         """
         
         print("=" * 45)
