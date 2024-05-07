@@ -81,10 +81,22 @@ def filtra_usuario(cpf, usuarios):
     usuarios_cadastrados = [usuario for usuario in usuarios if usuario["cpf"] == cpf]
     return usuarios_cadastrados[0] if usuarios_cadastrados else None
 
+def new_conta(agencia, num_conta, usuarios):
+
+    cpf = input("Digite o CPF do usuário: ")
+    usuario = filtra_usuario(cpf, usuarios)
+
+    if usuario:
+        print("\n ===== Conta criada com sucesso! =====")
+        return {"agencia": agencia, "num_conta": num_conta, "usuario": usuario}
+    
+    print("\n===== Usuário não localizado. Sessão encerrada. =====")
 
 
-    elif opcao == "q": #Sair
-        break
 
-    else: #Input inválido
-        print("Operação inválida, por gentileza selecione uma opção válida.")
+
+#    elif opcao == "q": #Sair
+##        break
+
+#    else: #Input inválido
+#        print("Operação inválida, por gentileza selecione uma opção válida.")
