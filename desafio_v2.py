@@ -31,7 +31,7 @@ class Conta: #Define as opeações da conta
 
     @classmethod
     def nova_conta(cls, cliente, numero):
-        return cls(cliente, numero)
+        return cls(numero, cliente)
     
     @property
     def saldo(self):
@@ -111,7 +111,7 @@ class ContaCorrente(Conta):
     def __str__(self):
         return f"""
             Agência:\t{self.agencia}
-            Conta:\t{self.numero}
+            Conta:\t\t{self.numero}
             Titular:\t{self.cliente.nome}
         """
 
@@ -250,7 +250,7 @@ def show_extrato(clientes):
             extrato += f"\n{transacao["tipo"]}:\n\tR$ {transacao['valor']:.2f}"
 
     print(extrato)
-    print("\n\t======")
+    print("=" * 50)
     print(f"\nSaldo: R$ {conta.saldo: .2f}")
     print("\n=================================")
 
@@ -276,7 +276,7 @@ def new_conta(numero_conta, clientes, contas):
     cpf = input("Informe o seu CPF: ")
     cliente = filtrar_cliente(cpf, clientes)
 
-    if  not cliente:
+    if not cliente:
         print("\n===== Usuário não localizado. Sessão encerrada. =====")
         return
 
@@ -315,7 +315,7 @@ def main():
             new_cliente(clientes)
 
         elif opcao == "n":
-            numero_conta = len(contas) +1
+            numero_conta = len(contas) + 1
             new_conta(numero_conta, clientes, contas)
             
         elif opcao == "c":
