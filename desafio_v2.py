@@ -110,12 +110,12 @@ class ContaCorrente(Conta):
     
     def __str__(self):
         return f"""
-            Agência: \t{self.agencia}
-            Conta: \t{self.conta}
-            Titular: \t{self.cliente.nome}
+            Agência:\t{self.agencia}
+            Conta:\t{self.numero}
+            Titular:\t{self.cliente}
         """
 
-class Historico():
+class Historico:
     def __init__(self):
         self._historico = []
 
@@ -128,7 +128,7 @@ class Historico():
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
-                "data": dt.now().strftime("%d-%m-%Y %H:%M:%S"),
+                "data": dt.now().strftime("%d-%m-%Y %H:%M"),
             }
         )
 
@@ -153,7 +153,7 @@ class Saque(Transacao):
         sucesso_transacao = conta.sacar(self.valor)
 
         if sucesso_transacao:
-            conta.historico.adcionar_transacao(self)
+            conta.historico.adicionar_transacao(self)
 
 class Deposito(Transacao):
     def __init__(self, valor):
@@ -164,13 +164,10 @@ class Deposito(Transacao):
         return self._valor
     
     def registrar(self, conta):
-        sucesso_transacao = conta.sacar(self.valor)
+        sucesso_transacao = conta.depositar(self.valor)
 
         if sucesso_transacao:
-            conta.historico.adcionar_transacao(self)
-
-
-
+            conta.historico.adicionar_transacao(self)
 
 def menu():
     menu = '''\n
@@ -187,15 +184,15 @@ def menu():
     return input(tw.dedent(menu))
 
 def filtrar_cliente(cpf, clientes):
-
+    
     clientes_filtrados = [cliente for cliente in clientes if cliente.cpf == cpf]
     return clientes_filtrados[0] if clientes_filtrados else None
 
-def reuperar_conta_cliente(cliente):
+def recuperar_conta_cliente(cliente):
     if not cliente.contas:
         print("\n======= O CPF informado não possui conta em nossa instituição! =======")
         return
-
+    
 def depositar(clientes):
     cpf = input("Informe o seu CPF:  ")
     cliente = filtrar_cliente(cpf, clientes)
@@ -205,24 +202,24 @@ def depositar(clientes):
         return
     
     valor = float(input("Informe o valor do depósito: "))
-    transacao = Depositar(valor)
+    transacao = Deposito(valor)
 
     conta = recuperar_conta_cliente(cliente)
     if not conta:
-        return
+        return 
     
     cliente.realizar_transacao(conta, transacao)
 
 def sacar(clientes):
     cpf = input("Informe o seu CPF: ")
-    cliente = filtrar_cliente(cpf, cliente)
+    cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
         print("\n======= O CPF informado não possui cadastro! =======")
         return
     
-    valor = float(input("Informe o valor do depósito: "))
-    transacao = Sacar(valor)
+    valor = float(input("Informe o valor a ser sacado: "))
+    transacao = Saque(valor)
 
     conta = recuperar_conta_cliente(cliente)
     if not conta:
@@ -232,7 +229,7 @@ def sacar(clientes):
 
 def show_extrato(clientes):
     cpf = input("Informe o seu CPF: ")
-    cliente = filtrar_cliente(cpf, cliente)
+    cliente = filtrar_cliente(cpf, clientes)
 
     if not cliente:
         print("\n======= O CPF informado não possui cadastro! =======")
@@ -285,7 +282,7 @@ def new_conta(numero_conta, clientes, contas):
 
     conta = ContaCorrente.nova_conta(cliente = cliente, numero = numero_conta)
     contas.append(conta)
-    cliente.conta.append(conta)
+    cliente.contas.append(conta)
 
     print("\n ===== Conta criada com sucesso! =====")
 #    return {"agencia": agencia, "numero_conta": numero_conta, "usuario": usuario}
