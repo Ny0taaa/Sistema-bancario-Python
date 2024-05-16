@@ -53,19 +53,18 @@ class Conta: #Define as opeações da conta
     def historico(self):
         return self._historico
     
-    
     def sacar(self, valor): #Operação de saque
         saldo = self.saldo
         excedeu_saldo = valor > saldo
 
         if excedeu_saldo:
-            print("Operação Falhou! O valor informado é maior que o seu saldo.")
-
+            print("\nOperação Falhou! O valor informado é maior que o seu saldo.")
 
         elif valor > 0:
             self._saldo -= valor
             print(f"Saque: R$ {valor:.2f}\n")
             print("\n===== Operação realizada com sucesso! =====")
+            return True
 
         else:
             print("Operação Falhou! O valor informado é inválido.")
@@ -81,14 +80,15 @@ class Conta: #Define as opeações da conta
 
         else:
             print("\n===== Operação Falhou! Valor informado é inválido. =====")
+            return False
 
         return True
     
 class ContaCorrente(Conta):
     def __init__(self, numero, cliente, limite = 500, limite_saques = 3):
         super().__init__(numero, cliente)
-        self.limite = limite
-        self.limite_saques = limite_saques
+        self._limite = limite
+        self._limite_saques = limite_saques
 
     def sacar(self, valor):
         numero_saques = len(
@@ -112,19 +112,19 @@ class ContaCorrente(Conta):
         return f"""
             Agência:\t{self.agencia}
             Conta:\t{self.numero}
-            Titular:\t{self.cliente}
+            Titular:\t{self.cliente.nome}
         """
 
 class Historico:
     def __init__(self):
-        self._historico = []
+        self._transacoes = []
 
     @property
     def transacoes(self):
         return self._transacoes
 
     def adicionar_transacoes(self, transacao):
-        self.transacoes.append(
+        self._transacoes.append(
             {
                 "tipo": transacao.__class__.__name__,
                 "valor": transacao.valor,
